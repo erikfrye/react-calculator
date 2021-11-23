@@ -1,6 +1,7 @@
 import { evaluate } from "./evaluate";
+import { State, Payload } from "./App";
 
-export const ACTIONS = {
+export const ACTIONS: {[key: string]: string} = {
   ADD_DIGIT: 'add-digit',
   CHOOSE_OPERATION: 'choose-operation',
   CLEAR: 'clear',
@@ -8,7 +9,7 @@ export const ACTIONS = {
   EVALUATE: 'evaluate'
 }
 
-export function reducer(state, { type, payload }) {
+export function reducer(state: State, { type, payload } : {type: string, payload: Payload}): State {
   switch (type) {
     case ACTIONS.ADD_DIGIT:
       if (state.overwrite)
@@ -21,7 +22,7 @@ export function reducer(state, { type, payload }) {
       if (payload.digit === "0" && state.currentOperand === "0") 
         return state;
 
-      if (payload.digit === "." && state.currentOperand.includes(".")) 
+      if (payload.digit === "." && state.currentOperand?.includes(".")) 
         return state;
       return {
         ...state,

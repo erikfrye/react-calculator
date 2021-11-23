@@ -5,6 +5,18 @@ import OperationButton from "./OperationButton";
 import { formatOperand } from "./numberFormat";
 import "./styles.css";
 
+export type State = {
+  overwrite?: boolean; 
+  currentOperand: string; 
+  previousOperand: string;
+  operation: string;
+}
+
+export type Payload = {
+  digit?: string; 
+  operation?: string;
+}
+
 function App() {
   const [{ currentOperand, previousOperand, operation }, dispatch] = useReducer(
     reducer, 

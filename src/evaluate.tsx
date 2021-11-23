@@ -1,8 +1,12 @@
-export function evaluate({currentOperand, previousOperand, operation}) {
-  const prev = parseFloat(previousOperand);
-  const current = parseFloat(currentOperand);
+import { State } from "./App";
+
+export function evaluate({currentOperand, previousOperand, operation}: State): string {
+  const prev = parseFloat(previousOperand?.toString());
+  const current = parseFloat(currentOperand?.toString());
+  
   if (isNaN(prev) || isNaN(current)) return ""
-  let computation = "";
+  
+  let computation: number;
 
   switch (operation) {
     case "+":
