@@ -1,15 +1,14 @@
 import { evaluate } from "./evaluate";
-import { State, Payload } from "./App";
 
-export const ACTIONS: {[key: string]: string} = {
-  ADD_DIGIT: 'add-digit',
-  CHOOSE_OPERATION: 'choose-operation',
-  CLEAR: 'clear',
-  DELETE_DIGIT: 'delete-digit',
-  EVALUATE: 'evaluate'
+export enum ACTIONS {
+  ADD_DIGIT = 'add-digit',
+  CHOOSE_OPERATION = 'choose-operation',
+  CLEAR = 'clear',
+  DELETE_DIGIT = 'delete-digit',
+  EVALUATE = 'evaluate'
 }
 
-export function reducer(state: State, { type, payload } : {type: string, payload: Payload}): State {
+export function reducer(state: any, { type, payload } : any): any {
   switch (type) {
     case ACTIONS.ADD_DIGIT:
       if (state.overwrite)
@@ -21,6 +20,12 @@ export function reducer(state: State, { type, payload } : {type: string, payload
 
       if (payload.digit === "0" && state.currentOperand === "0") 
         return state;
+
+      if (payload.digit === "." && state.currentOperand == null)
+        return {
+          ...state,
+          currentOperand: `0${payload.digit}`,
+        };
 
       if (payload.digit === "." && state.currentOperand?.includes(".")) 
         return state;
@@ -56,7 +61,12 @@ export function reducer(state: State, { type, payload } : {type: string, payload
       }
 
     case ACTIONS.CLEAR:
-      return {}
+      return { 
+        ...state,
+        previousOperand: null,
+        operation: null,
+        currentOperand: null
+      }
 
     case ACTIONS.DELETE_DIGIT:
       if (state.overwrite) {

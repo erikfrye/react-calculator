@@ -3,8 +3,8 @@ const INTERGER_FORMATTER = new Intl.NumberFormat("en-us", {
 });
 
 export function formatOperand(operand: string): string {
-  if (operand == null) return;
-  const [integer, decimal] = operand.split('.');
+  if (operand == null) return "";
+  const [integer, decimal]:any = operand.split('.');
   if (decimal == null) return INTERGER_FORMATTER.format(integer);
 
   return `${INTERGER_FORMATTER.format(integer)}.${decimal}`;

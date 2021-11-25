@@ -6,7 +6,7 @@ export function evaluate({currentOperand, previousOperand, operation}: State): s
   
   if (isNaN(prev) || isNaN(current)) return ""
   
-  let computation: number;
+  let computation: number = 0;
 
   switch (operation) {
     case "+":
